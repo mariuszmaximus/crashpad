@@ -35,6 +35,18 @@
 #include "util/win/scoped_handle.h"
 #include "util/win/scoped_local_alloc.h"
 
+#if defined(__MINGW32__)
+// Missing functions in MSYS2
+WINBASEAPI WINBOOL WINAPI InitializeContext2(PVOID Buffer,
+                                             DWORD ContextFlags,
+                                             PCONTEXT* Context,
+                                             PDWORD ContextLength,
+                                             ULONG64 XStateCompactionMask);
+WINBASEAPI HRESULT WINAPI
+GetThreadDescription(_In_ HANDLE hThread,
+                     _Outptr_result_z_ PWSTR* ppszThreadDescription);
+#endif
+
 namespace crashpad {
 
 namespace {
